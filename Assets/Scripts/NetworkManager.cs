@@ -30,6 +30,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         _createRoomUIPanel.SetActive(_createRoomUIPanel.name.Equals(panelNameToBeActivated));
         _creatingRoomInfoUIPanel.SetActive(_creatingRoomInfoUIPanel.name.Equals(panelNameToBeActivated));
         _gameOptionsUIPanel.SetActive(_gameOptionsUIPanel.name.Equals(panelNameToBeActivated));
+        _insideRoomUIPanel.SetActive(_insideRoomUIPanel.name.Equals(panelNameToBeActivated));
         _joinRandomRoomUIPanel.SetActive(_joinRandomRoomUIPanel.name.Equals(panelNameToBeActivated));
     }
 
@@ -59,9 +60,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnCancelButtonClicked()
+    public void OnCancelButtonClicked(string panelNameToBeActivated)
     {
-        ActivatePanel(_gameOptionsUIPanel.name);
+        ActivatePanel(panelNameToBeActivated);
     }
 
     public void OnCreateRoomButtonClicked()
@@ -97,6 +98,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(roomName, roomOptions);
     }
 
+    public void OnJoinRandomRoomButtonClicked(string gameMode)
+    {
+        _gameMode = gameMode;
+
+        ExitGames.Client.Photon.Hashtable expectedCustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "gm", gameMode } };
+        PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, 0);
+    }
+
     #endregion
 
     #region Photon Callbacks
@@ -119,7 +128,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Debug.Log(PhotonNetwork.LocalPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name);
+        Debug.Log(PhotonNetwork.LocalPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name + ". Player count: " + PhotonNetwork.CurrentRoom.PlayerCount);
+
+        ActivatePanel(_insideRoomUIPanel.name);
 
         if(PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("gm"))
         {
@@ -130,6 +141,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 Debug.Log(gameModeName.ToString());
             }
         }
+    }
+
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log("Join failed. " + message);
+        OnCreateRoomButtonClicked();
     }
 
     #endregion
