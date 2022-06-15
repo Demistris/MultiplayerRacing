@@ -7163,6 +7163,7 @@ MonoBehaviour:
   _playerListPrefab: {fileID: 1590344850095639137, guid: 46f749e614f847a47940ad1dde964668,
     type: 3}
   _playerListContent: {fileID: 244169819}
+  _startGameButton: {fileID: 1279214256}
   _loginUIPanel: {fileID: 1898342735}
   _connectingInfoUIPanel: {fileID: 751703433}
   _createRoomUIPanel: {fileID: 274552716}

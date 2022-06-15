@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -11,6 +12,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] private Text _roomInfoText;
     [SerializeField] private PlayerListEntryInitializer _playerListPrefab;
     [SerializeField] private GameObject _playerListContent;
+    [SerializeField] private GameObject _startGameButton;
 
     [Header("Panels")]
     [SerializeField] private GameObject _loginUIPanel;
@@ -52,12 +54,45 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         playerListGameObject.transform.localScale = Vector3.one;
         playerListGameObject.Initialize(player.ActorNumber, player.NickName);
 
+        object isPlayerReady;
+        if (player.CustomProperties.TryGetValue(MultiplayerRacingGame.PLAYER_READY, out isPlayerReady))
+        {
+            playerListGameObject.SetPlayerReady((bool)isPlayerReady);
+        }
+
         _playerListGameObjects.Add(player.ActorNumber, playerListGameObject.gameObject);
     }
 
     private void ShowRoomTextInfo()
     {
         _roomInfoText.text = "Room name: " + PhotonNetwork.CurrentRoom.Name + ". Players/Max players: " + PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
+    }
+
+    private bool ChceckPlayersReady()
+    {
+        if(!PhotonNetwork.IsMasterClient)
+        {
+            return false;
+        }
+
+        foreach(Player player in PhotonNetwork.PlayerList)
+        {
+            object isPlayerReady;
+
+            if(player.CustomProperties.TryGetValue(MultiplayerRacingGame.PLAYER_READY, out isPlayerReady))
+            {
+                if(!(bool)isPlayerReady)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     #region UI Callback Methods
@@ -172,11 +207,31 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 SetupPlayerListGameObject(player);
             }
         }
+
+        _startGameButton.SetActive(false);
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+        GameObject playerListGameObject;
+
+        if(_playerListGameObjects.TryGetValue(targetPlayer.ActorNumber, out playerListGameObject))
+        {
+            object isPlayerReady;
+
+            if(changedProps.TryGetValue(MultiplayerRacingGame.PLAYER_READY, out isPlayerReady))
+            {
+                playerListGameObject.GetComponent<PlayerListEntryInitializer>().SetPlayerReady((bool)isPlayerReady);
+            }
+        }
+
+        _startGameButton.SetActive(ChceckPlayersReady());
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         SetupPlayerListGameObject(newPlayer);
+        _startGameButton.SetActive(ChceckPlayersReady());
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -198,6 +253,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         _playerListGameObjects.Clear();
         _playerListGameObjects = null;
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        if(PhotonNetwork.LocalPlayer.ActorNumber == newMasterClient.ActorNumber)
+        {
+            _startGameButton.SetActive(ChceckPlayersReady());
+        }
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)

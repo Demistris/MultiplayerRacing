@@ -571,4 +571,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerNameText: {fileID: 1294863439285219800}
   _playerReadyButton: {fileID: 1294863439285279534}
+  _playerReadyText: {fileID: 1294863439285309512}
   _playerReadyImage: {fileID: 1294863439285309300}
