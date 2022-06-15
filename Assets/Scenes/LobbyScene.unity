@@ -5995,7 +5995,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1598625408
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7159,6 +7159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerNameInput: {fileID: 237746957}
   _roomNameInput: {fileID: 460123711}
+  _roomInfoText: {fileID: 314537884}
+  _playerListPrefab: {fileID: 1590344850095639137, guid: 46f749e614f847a47940ad1dde964668,
+    type: 3}
+  _playerListContent: {fileID: 244169819}
   _loginUIPanel: {fileID: 1898342735}
   _connectingInfoUIPanel: {fileID: 751703433}
   _createRoomUIPanel: {fileID: 274552716}
@@ -7588,7 +7592,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1917671490}
         m_MethodName: OnLeaveGameButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -7596,7 +7600,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: GameOptionsPanel
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,

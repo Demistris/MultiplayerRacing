@@ -2,12 +2,17 @@
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections.Generic;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private InputField _playerNameInput;
     [SerializeField] private InputField _roomNameInput;
+    [SerializeField] private Text _roomInfoText;
+    [SerializeField] private PlayerListEntryInitializer _playerListPrefab;
+    [SerializeField] private GameObject _playerListContent;
 
+    [Header("Panels")]
     [SerializeField] private GameObject _loginUIPanel;
     [SerializeField] private GameObject _connectingInfoUIPanel;
     [SerializeField] private GameObject _createRoomUIPanel;
@@ -17,6 +22,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject _joinRandomRoomUIPanel;
 
     private string _gameMode;
+    private Dictionary<int, GameObject> _playerListGameObjects;
 
     private void Start()
     {
@@ -37,6 +43,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void SetGameMode(string gameMode)
     {
         _gameMode = gameMode;
+    }
+
+    private void SetupPlayerListGameObject(Player player)
+    {
+        PlayerListEntryInitializer playerListGameObject = Instantiate(_playerListPrefab);
+        playerListGameObject.transform.SetParent(_playerListContent.transform);
+        playerListGameObject.transform.localScale = Vector3.one;
+        playerListGameObject.Initialize(player.ActorNumber, player.NickName);
+
+        _playerListGameObjects.Add(player.ActorNumber, playerListGameObject.gameObject);
+    }
+
+    private void ShowRoomTextInfo()
+    {
+        _roomInfoText.text = "Room name: " + PhotonNetwork.CurrentRoom.Name + ". Players/Max players: " + PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
     }
 
     #region UI Callback Methods
@@ -106,6 +127,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, 0);
     }
 
+    public void OnLeaveGameButtonClicked()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
     #endregion
 
     #region Photon Callbacks
@@ -134,13 +160,44 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         if(PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("gm"))
         {
-            object gameModeName;
+            ShowRoomTextInfo();
 
-            if(PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("gm", out gameModeName))
+            if (_playerListGameObjects == null)
             {
-                Debug.Log(gameModeName.ToString());
+                _playerListGameObjects = new Dictionary<int, GameObject>();
+            }
+
+            foreach (Player player in PhotonNetwork.PlayerList)
+            {
+                SetupPlayerListGameObject(player);
             }
         }
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        SetupPlayerListGameObject(newPlayer);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        ShowRoomTextInfo();
+
+        Destroy(_playerListGameObjects[otherPlayer.ActorNumber]);
+        _playerListGameObjects.Remove(otherPlayer.ActorNumber);
+    }
+
+    public override void OnLeftRoom()
+    {
+        ActivatePanel(_gameOptionsUIPanel.name);
+
+        foreach(GameObject playerListGameObject in _playerListGameObjects.Values)
+        {
+            Destroy(playerListGameObject);
+        }
+
+        _playerListGameObjects.Clear();
+        _playerListGameObjects = null;
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
