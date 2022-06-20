@@ -7,10 +7,12 @@ public class RacingModeGameManager : MonoBehaviour
 {
     public static RacingModeGameManager Instance = null;
     public Text TimeUIText => _timeUIText;
+    public GameObject[] FinishOrderUIGameObjects => _finishOrderUIGameObjects;
     public List<GameObject> LapTriggers => _lapTriggers;
 
     [SerializeField] private GameObject[] _playerPrefabs;
     [SerializeField] private Transform[] _playerPositions;
+    [SerializeField] private GameObject[] _finishOrderUIGameObjects;
     [SerializeField] private List<GameObject> _lapTriggers;
     [SerializeField] private Text _timeUIText;
 
@@ -39,6 +41,11 @@ public class RacingModeGameManager : MonoBehaviour
 
                 PhotonNetwork.Instantiate(_playerPrefabs[(int)playerSelectionNumber].name, playerPosition, Quaternion.identity);
             }
+        }
+
+        foreach(GameObject go in _finishOrderUIGameObjects)
+        {
+            go.SetActive(false);
         }
     }
 }

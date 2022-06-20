@@ -430,6 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _carMovement: {fileID: 1072477523673105689}
+  _lapController: {fileID: 1246513968803787706}
   _camera: {fileID: 8755522242653553365}
 --- !u!114 &8432230785564764994
 MonoBehaviour:
@@ -444,7 +445,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _carMovement: {fileID: 1072477523673105689}
-  _timeUIText: {fileID: 0}
 --- !u!114 &1246513968803787706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,8 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38be83ec80ab1344299cfa50b728bff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _carMovement: {fileID: 1072477523673105689}
-  _camera: {fileID: 7806765842877098667}
+  _playerSetup: {fileID: 472533206982489778}
 --- !u!1 &8755522242653553365
 GameObject:
   m_ObjectHideFlags: 0

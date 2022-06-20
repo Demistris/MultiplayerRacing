@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
-using System.Collections.Generic;
 using ExitGames.Client.Photon;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
