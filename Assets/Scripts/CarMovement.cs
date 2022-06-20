@@ -6,9 +6,15 @@ public class CarMovement : MonoBehaviour
 
     private Vector3 _thrustForce = new Vector3(0f, 0f, 45f);
     private Vector3 _rotationTorque = new Vector3(0f, 8f, 0f);
+    private bool _areControlsEnabled;
 
     private void Update()
     {
+        if(!_areControlsEnabled)
+        {
+            return;
+        }
+
         if(Input.GetKey("w"))
         {
             _rigidbody.AddRelativeForce(_thrustForce);
@@ -28,5 +34,10 @@ public class CarMovement : MonoBehaviour
         {
             _rigidbody.AddRelativeTorque(_rotationTorque);
         }
+    }
+
+    public void EnableControls(bool enable)
+    {
+        _areControlsEnabled = enable;
     }
 }

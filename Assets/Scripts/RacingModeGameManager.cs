@@ -1,10 +1,27 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 
 public class RacingModeGameManager : MonoBehaviour
 {
+    public static RacingModeGameManager Instance = null;
+    public Text TimeUIText => _timeUIText;
+
     [SerializeField] private GameObject[] _playerPrefabs;
     [SerializeField] private Transform[] _playerPositions;
+    [SerializeField] private Text _timeUIText;
+
+    private void Awake()
+    {
+        if(Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void Start()
     {
