@@ -14,6 +14,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject _playerListContent;
     [SerializeField] private GameObject _startGameButton;
 
+    [Header("Game Mode")]
+    [SerializeField] private Text _gameModeText;
+    [SerializeField] private Image _panelBackground;
+    [SerializeField] private Sprite _racingBackground;
+    [SerializeField] private Sprite _deathRaceBackground;
+
     [Header("Panels")]
     [SerializeField] private GameObject _loginUIPanel;
     [SerializeField] private GameObject _connectingInfoUIPanel;
@@ -29,6 +35,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         ActivatePanel(_loginUIPanel.name);
+
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     public void ActivatePanel(string panelNameToBeActivated)
@@ -167,6 +175,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
+    public void OnStartGameButtonClicked()
+    {
+        if(PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("gm"))
+        {
+            if(PhotonNetwork.CurrentRoom.CustomProperties.ContainsValue("rc"))
+            {
+                PhotonNetwork.LoadLevel("RacingScene");
+            }
+            else if(PhotonNetwork.CurrentRoom.CustomProperties.ContainsValue("dr"))
+            {
+                PhotonNetwork.LoadLevel("DeathRaceScene");
+            }
+        }
+    }
+
     #endregion
 
     #region Photon Callbacks
@@ -196,6 +219,19 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if(PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("gm"))
         {
             ShowRoomTextInfo();
+
+            if(PhotonNetwork.CurrentRoom.CustomProperties.ContainsValue("rc"))
+            {
+                //Racing game mode
+                _gameModeText.text = "Let's race!";
+                _panelBackground.sprite = _racingBackground;
+            }
+            else if(PhotonNetwork.CurrentRoom.CustomProperties.ContainsValue("dr"))
+            {
+                //Death race game mode
+                _gameModeText.text = "Death Race!";
+                _panelBackground.sprite = _deathRaceBackground;
+            }
 
             if (_playerListGameObjects == null)
             {
