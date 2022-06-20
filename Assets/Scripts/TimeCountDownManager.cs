@@ -6,7 +6,7 @@ public class TimeCountDownManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private CarMovement _carMovement;
 
-    public Text _timeUIText;
+    private Text _timeUIText;
     private float _timeToStartRace = 5f;
 
     private void Awake()

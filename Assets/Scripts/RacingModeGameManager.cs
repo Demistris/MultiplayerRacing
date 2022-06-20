@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 
@@ -6,9 +7,11 @@ public class RacingModeGameManager : MonoBehaviour
 {
     public static RacingModeGameManager Instance = null;
     public Text TimeUIText => _timeUIText;
+    public List<GameObject> LapTriggers => _lapTriggers;
 
     [SerializeField] private GameObject[] _playerPrefabs;
     [SerializeField] private Transform[] _playerPositions;
+    [SerializeField] private List<GameObject> _lapTriggers;
     [SerializeField] private Text _timeUIText;
 
     private void Awake()
