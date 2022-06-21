@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 
-public class DeathRaceModeGameManager : MonoBehaviour
+public class DeathRaceModeGameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject[] _playerPrefabs;
 
@@ -20,5 +21,15 @@ public class DeathRaceModeGameManager : MonoBehaviour
 
             PhotonNetwork.Instantiate(_playerPrefabs[(int)playerSelectionNumber].name, new Vector3(randomPosition, 0f, randomPosition), Quaternion.identity);
         }    
+    }
+
+    public void OnQuitMatchButtonClicked()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        SceneManager.LoadScene("LobbyScene");
     }
 }
