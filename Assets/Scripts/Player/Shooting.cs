@@ -64,6 +64,16 @@ public class Shooting : MonoBehaviourPun
                 _lineRenderer.SetPosition(0, firePosition);
                 _lineRenderer.SetPosition(1, hit.point);
 
+                if(hit.collider.gameObject.CompareTag("Player"))
+                {
+                    PhotonView photonView = hit.collider.gameObject.GetComponent<PhotonView>();
+
+                    if (photonView.IsMine)
+                    {
+                        photonView.RPC("MakeDamage", RpcTarget.AllBuffered, _deathRacePlayerProperties.Damage);
+                    }
+                }
+
                 StopAllCoroutines();
                 StartCoroutine(DisableAfter(0.3f));
             }

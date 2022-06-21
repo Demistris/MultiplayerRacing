@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 3748002384677848493}
   - component: {fileID: 7494933857119200804}
   - component: {fileID: 7430209994851669865}
+  - component: {fileID: 3745829877939740283}
   m_Layer: 0
   m_Name: DG_Player_CarSport
   m_TagString: Player
@@ -381,6 +382,20 @@ MonoBehaviour:
     type: 2}
   _isUsingLaser: 1
   _lineRenderer: {fileID: 1640175522}
+--- !u!114 &3745829877939740283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3189090968767411349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1694113ffc73a641bdeaa876e0bc599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startHealth: 100
+  _healthBar: {fileID: 4743990239124289505}
 --- !u!1 &3537330560672789734
 GameObject:
   m_ObjectHideFlags: 0
