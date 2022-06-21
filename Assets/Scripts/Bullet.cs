@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MachineGunBullet : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
 

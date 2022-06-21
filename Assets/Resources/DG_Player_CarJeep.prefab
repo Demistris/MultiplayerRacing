@@ -354,7 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a99a04a1673a7429bacae95426debd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 5179685284399480025, guid: 35d44458c1899014786bf478fba74a09,
+  _bulletPrefab: {fileID: 6853976640164653274, guid: 2f77b45aab7070c4aad64a0699fbb716,
     type: 3}
   _firePosition: {fileID: 1721425625}
   _playerCamera: {fileID: 5697894330807671576}
