@@ -236,6 +236,9 @@ GameObject:
   - component: {fileID: 1663159088154523984}
   - component: {fileID: 5924046281226392726}
   - component: {fileID: 5945438357724921948}
+  - component: {fileID: 1931537539745717614}
+  - component: {fileID: 3748002384677848493}
+  - component: {fileID: 7494933857119200804}
   m_Layer: 0
   m_Name: DG_Player_CarSport
   m_TagString: Player
@@ -305,13 +308,59 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
+  observableSearch: 0
   ObservedComponents:
-  - {fileID: 0}
-  viewIdField: 0
+  - {fileID: 1931537539745717614}
+  sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1931537539745717614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3189090968767411349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &3748002384677848493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3189090968767411349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a78b79282572774897f63ed019b91e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 1663159088154523984}
+--- !u!114 &7494933857119200804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3189090968767411349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52fa8c0ba3acd7d49ba77dc1a75069b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _carMovement: {fileID: 3748002384677848493}
+  _lapController: {fileID: 0}
+  _camera: {fileID: 5384054389719831263}
+  _playerNameText: {fileID: 8612707795153771747}
 --- !u!1 &3537330560672789734
 GameObject:
   m_ObjectHideFlags: 0

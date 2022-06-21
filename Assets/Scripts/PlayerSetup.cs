@@ -13,16 +13,31 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
     {
         SetPlayerUI();
 
+        if(PhotonNetwork.CurrentRoom.CustomProperties.ContainsValue("rc"))
+        {
+            if (photonView.IsMine)
+            {
+                _carMovement.enabled = true;
+                _lapController.enabled = true;
+                _camera.SetActive(true);
+                return;
+            }
+
+            _carMovement.enabled = false;
+            _lapController.enabled = false;
+            _camera.SetActive(false);
+            return;
+        }
+
         if (photonView.IsMine)
         {
             _carMovement.enabled = true;
-            _lapController.enabled = true;
+            _carMovement.EnableControls(true);
             _camera.SetActive(true);
             return;
         }
 
         _carMovement.enabled = false;
-        _lapController.enabled = false;
         _camera.SetActive(false);
     }
 

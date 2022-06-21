@@ -544,6 +544,9 @@ GameObject:
   - component: {fileID: 8811261575497872958}
   - component: {fileID: 2417524717387165730}
   - component: {fileID: 3482768827482843505}
+  - component: {fileID: 4561501896395303123}
+  - component: {fileID: 609250051206761037}
+  - component: {fileID: 5743148436376074356}
   m_Layer: 0
   m_Name: DG_Player_CarMuscle
   m_TagString: Player
@@ -613,13 +616,59 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
+  observableSearch: 0
   ObservedComponents:
-  - {fileID: 0}
-  viewIdField: 0
+  - {fileID: 4561501896395303123}
+  sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &4561501896395303123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4689008684380552187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &609250051206761037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4689008684380552187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a78b79282572774897f63ed019b91e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 8811261575497872958}
+--- !u!114 &5743148436376074356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4689008684380552187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52fa8c0ba3acd7d49ba77dc1a75069b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _carMovement: {fileID: 609250051206761037}
+  _lapController: {fileID: 0}
+  _camera: {fileID: 2876490823901568433}
+  _playerNameText: {fileID: 7201343586434115789}
 --- !u!1 &6455898760384394329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,8 +1057,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Tevfik
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
