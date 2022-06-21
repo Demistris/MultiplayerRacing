@@ -19,6 +19,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] private Image _panelBackground;
     [SerializeField] private Sprite _racingBackground;
     [SerializeField] private Sprite _deathRaceBackground;
+    [SerializeField] private GameObject[] _playerSelectionUIGameObjects;
+    [SerializeField] private DeathRacePlayer[] _deathRacePlayers;
+    [SerializeField] private RacingPlayer[] _racingPlayers;
 
     [Header("Panels")]
     [SerializeField] private GameObject _loginUIPanel;
@@ -225,12 +228,26 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 //Racing game mode
                 _gameModeText.text = "Let's race!";
                 _panelBackground.sprite = _racingBackground;
+
+                for (int i = 0; i < _playerSelectionUIGameObjects.Length; i++)
+                {
+                    _playerSelectionUIGameObjects[i].transform.Find("PlayerName").GetComponent<Text>().text = _racingPlayers[i].PlayerName;
+                    _playerSelectionUIGameObjects[i].GetComponent<Image>().sprite = _racingPlayers[i].PlayerSprite;
+                    _playerSelectionUIGameObjects[i].transform.Find("PlayerProperty").GetComponent<Text>().text = "";
+                }
             }
             else if(PhotonNetwork.CurrentRoom.CustomProperties.ContainsValue("dr"))
             {
                 //Death race game mode
                 _gameModeText.text = "Death Race!";
                 _panelBackground.sprite = _deathRaceBackground;
+
+                for (int i = 0; i < _playerSelectionUIGameObjects.Length; i++)
+                {
+                    _playerSelectionUIGameObjects[i].transform.Find("PlayerName").GetComponent<Text>().text = _deathRacePlayers[i].PlayerName;
+                    _playerSelectionUIGameObjects[i].GetComponent<Image>().sprite = _deathRacePlayers[i].PlayerSprite;
+                    _playerSelectionUIGameObjects[i].transform.Find("PlayerProperty").GetComponent<Text>().text = _deathRacePlayers[i].Weapon + ": Damage: " + _deathRacePlayers[i].Damage + " FireRate: " + _deathRacePlayers[i].FireRate;
+                }
             }
 
             if (_playerListGameObjects == null)
