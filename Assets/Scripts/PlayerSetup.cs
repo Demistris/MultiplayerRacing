@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
 using Photon.Pun;
+using TMPro;
 
 public class PlayerSetup : MonoBehaviourPunCallbacks
 {
     [SerializeField] private CarMovement _carMovement;
     [SerializeField] private LapController _lapController;
     [SerializeField] private GameObject _camera;
+    [SerializeField] private TextMeshProUGUI _playerNameText;
 
     private void Start()
     {
+        SetPlayerUI();
+
         if (photonView.IsMine)
         {
             _carMovement.enabled = true;
@@ -26,5 +30,20 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
     {
         _carMovement.enabled = false;
         _camera.transform.parent = null;
+    }
+
+    private void SetPlayerUI()
+    {
+        if(_playerNameText == null)
+        {
+            return;
+        }
+
+        _playerNameText.text = photonView.Owner.NickName;
+
+        if(photonView.IsMine)
+        {
+            _playerNameText.gameObject.SetActive(false);
+        }
     }
 }
