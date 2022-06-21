@@ -547,6 +547,7 @@ GameObject:
   - component: {fileID: 4561501896395303123}
   - component: {fileID: 609250051206761037}
   - component: {fileID: 5743148436376074356}
+  - component: {fileID: 7989724278106802431}
   m_Layer: 0
   m_Name: DG_Player_CarMuscle
   m_TagString: Player
@@ -669,6 +670,24 @@ MonoBehaviour:
   _lapController: {fileID: 0}
   _camera: {fileID: 2876490823901568433}
   _playerNameText: {fileID: 7201343586434115789}
+--- !u!114 &7989724278106802431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4689008684380552187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a99a04a1673a7429bacae95426debd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPrefab: {fileID: 5179685284399480025, guid: 35d44458c1899014786bf478fba74a09,
+    type: 3}
+  _firePosition: {fileID: 465340505}
+  _playerCamera: {fileID: 1288364109427902234}
+  _deathRacePlayerProperties: {fileID: 11400000, guid: 7b178e9962ff3574386ffc8599742d01,
+    type: 2}
 --- !u!1 &6455898760384394329
 GameObject:
   m_ObjectHideFlags: 0
