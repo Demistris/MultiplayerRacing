@@ -374,12 +374,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a99a04a1673a7429bacae95426debd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 5179685284399480025, guid: 35d44458c1899014786bf478fba74a09,
-    type: 3}
+  _bulletPrefab: {fileID: 0}
   _firePosition: {fileID: 1640175523}
   _playerCamera: {fileID: 8985360257163249780}
   _deathRacePlayerProperties: {fileID: 11400000, guid: 31e6f32546cd95245beed97e441c938e,
     type: 2}
+  _isUsingLaser: 1
+  _lineRenderer: {fileID: 1640175522}
 --- !u!1 &3537330560672789734
 GameObject:
   m_ObjectHideFlags: 0
